@@ -1,6 +1,4 @@
 import psycopg2
-import requests
-from exceptions import ConfigException
 from configparser import ConfigParser
 
 
@@ -124,11 +122,9 @@ VALUES
     def get_vacancies(self):
         query = """
 SELECT 
-    vacancy_id,
     vacancies.title,
-    employers.employer_id,
     employers.title AS employer,
-    salary_min
+    salary_min,
     url
 FROM vacancies
 JOIN employers USING (employer_id)
@@ -144,24 +140,20 @@ FROM vacancies
         values = self.__fetch_all(query)[0][0]
         return values
 
-
-"""
-    def get_companies_and_vacancies_count(self):
-        pass
-получает список всех компаний и количество вакансий у каждой компании.
-
-    def get_all_vacancies(self):
-        pass
-получает список всех вакансий с указанием названия компании, названия вакансии и зарплаты и ссылки на вакансию.
-
     def get_vacancies_with_higher_salary(self):
-        pass
-получает список всех вакансий, у которых зарплата выше средней по всем вакансиям.
+        query = """
+SELECT *
+FROM vacancies
+WHERE salary_min > (SELECT AVG(salary_min) FROM vacancies)
+        """
+        values = self.__fetch_all(query)
+        return values
 
-    def get_vacancies_with_keyword(self):
-        pass
-получает список всех вакансий, в названии которых содержатся переданные в метод слова, например python.
-
-
-,
-                vacancy['alternate_id']"""
+    def get_vacancies_with_keyword(self, keyword):
+        query = f"""
+SELECT *
+FROM vacancies
+WHERE title LIKE '%{keyword}%'
+        """
+        values = self.__fetch_all(query)
+        return values
