@@ -6,8 +6,9 @@ class Work(Exception):
 
 class ConfigException(Work):
 
-     def __init__(self):
-         pass
+    def __init__(self):
+        pass
+
 
 class ParsingError(Work):
 
