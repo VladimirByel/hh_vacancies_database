@@ -22,18 +22,12 @@ def main():
         exit()
 
     # заполнение таблицы employers
-    employers = get_employers()
-    db_manager.fill_employers(employers)
-    """
     try:
         employers = get_employers()
         db_manager.fill_employers(employers)
     except FileNotFoundError:
         FileNotFoundError('Файл не найден')
-    except Exception:
-        print("boom")
-    #    exit()
-    """
+        exit()
 
     # парсинг вакансий (hh.ru)
     hh = APIhh()
