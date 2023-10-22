@@ -8,7 +8,7 @@ Some companies of the creator of the project's choosing have been added as an ex
 Once one's clicked 'run', the programm will start uploading database of vacancies published by the employers from companies.json. 
 
 Then one will be given several options:
-- To see the number of vacancies the programm could find
+- To see the number of vacancies the programm has been able to find
 - To see the average salary of all the vacancies
 - More is to come
 
