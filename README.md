@@ -1,5 +1,5 @@
 # hh_vacancies_database
-This project is all about looking for vacancies published by the employers of your choosing
+This project is all about looking for vacancies published by the employers of one's choosing
 
 First, one has to find out what the URLs of the chosen employers on hh.ru are. 
 Then, one has to add them to the list of employers in companies.json.
