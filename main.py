@@ -1,12 +1,9 @@
-import psycopg2
 from utils import get_employers
 from DBManager import DBManager
-from api import APIhh, HH
-from exceptions import ConfigException
+from api import APIhh
 
 
 def main():
-    employers = []
     vacancies = []
     try:
         db_manager = DBManager()
@@ -14,7 +11,7 @@ def main():
         db_manager.create_tables()
     except FileNotFoundError:
         FileNotFoundError('Ошибка: файл не найден')
-    #    exit()
+        exit()
     """
     except ConfigException:
         print("Ошибка конфигурации")
@@ -52,16 +49,32 @@ def main():
         user_input = input("""
 1 - вывести все вакансии
 2 - получить зреднюю зарплату
+3 - получить список вакансий с зарплатами выше среднего
+4 - искать вакансии по ключевому слову
 exit - завершить работу\n""")
         if user_input == '1':
             vacancies = db_manager.get_vacancies()
             for vacancy in vacancies:
-                print(vacancy)
+                for vac in vacancy:
+                    print(vac)
         elif user_input == '2':
             vacancy = db_manager.get_avg_salary()
-            #for vacancy in vacancies:
             rounded_vacancy = round(vacancy)
             print(rounded_vacancy)
+        elif user_input == '3':
+            vacancy = db_manager.get_avg_salary()
+            rounded_vacancy = round(vacancy)
+            print(f"Средняя заработная плата: {rounded_vacancy}")
+            vacancies = db_manager.get_vacancies_with_higher_salary()
+            for vacancy in vacancies:
+                for vac in vacancy:
+                    print(vac)
+        elif user_input == '4':
+            keyword = input('Введите слово, по которому хотите искать вакансии\n')
+            vacancies = db_manager.get_vacancies_with_keyword(keyword)
+            for vacancy in vacancies:
+                for vac in vacancy:
+                    print(vac)
         elif user_input == 'exit':
             break
 
