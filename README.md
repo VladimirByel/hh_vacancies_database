@@ -10,7 +10,8 @@ Once one's clicked 'run', the programm will start uploading database of vacancie
 Then one will be given several options:
 - To see the number of vacancies the programm has been able to find
 - To see the average salary of all the vacancies
-- More is to come
+- To see the vacancies with a higher than average salary
+- To look for vacancies that contain the keyword one wants the job name to have
 
 If you want to leave feedback, please refer to feedback.about.hh.vacancies.database@likeitsreal.com
 
