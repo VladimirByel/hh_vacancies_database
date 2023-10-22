@@ -101,14 +101,17 @@ VALUES
     def fill_vacancies(self, values):
         vacancies = []
         for vacancy in values:
-            salary_min = vacancy['salary']['from']
-            #if vacancy['salary'] and vacancy['salary']['from']: continue
+            if vacancy['salary']:
+                if vacancy['salary']['from']:
+                    salary_min = vacancy['salary']['from']
+            else:
+                salary_min = 0
             vacancies.append((
                 vacancy['id'],
                 vacancy['name'],
                 vacancy['employer']['id'],
                 salary_min,
-                vacancy['alternate_id']
+                vacancy['alternate_url']
             ))
 
         query = """
@@ -121,23 +124,21 @@ VALUES
     def get_vacancies(self):
         query = """
 SELECT 
-    vacancies.vacancy_id,
+    vacancy_id,
     vacancies.title,
     employers.employer_id,
     employers.title AS employer,
-    vacancies.salary_min
+    salary_min
     url
 FROM vacancies
-JOIN employers
-    USING (employer_id)
+JOIN employers USING (employer_id)
         """
         values = self.__fetch_all(query)
         return values
 
     def get_avg_salary(self):
         query = """
-SELECT
-    AVG(vacancies.salary_min)
+SELECT AVG(salary_min)
 FROM vacancies
         """
         values = self.__fetch_all(query)[0][0]
@@ -159,4 +160,8 @@ FROM vacancies
 
     def get_vacancies_with_keyword(self):
         pass
-получает список всех вакансий, в названии которых содержатся переданные в метод слова, например python."""
+получает список всех вакансий, в названии которых содержатся переданные в метод слова, например python.
+
+
+,
+                vacancy['alternate_id']"""

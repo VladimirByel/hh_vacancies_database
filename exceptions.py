@@ -11,5 +11,5 @@ class ConfigException(Work):
 
 class ParsingError(Work):
 
-    def __init__(self):
+    def __init__(self, n):
         pass

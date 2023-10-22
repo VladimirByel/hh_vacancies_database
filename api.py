@@ -18,17 +18,17 @@ class APIhh(Api):
         self.key = ""
         self.vacancies = []
         self.headers = {
-            "User_Agent": self.key
+            "HH-User-Agent": self.key
         }
         self.params = {
             "per_page": 100,
-            "page": None,
+            "page": 0,
             "archived": False,
             "employer_id": None
         }
 
     def get_request(self):
-        response = requests.get(self.url, headers=self.headers, params=self.params)
+        response = requests.get(url=self.url, headers=self.headers, params=self.params)
         if response.status_code != 200:
             raise ParsingError(f"Ошибка получения вакансий! {response.status_code}")
         return response.json()['items']

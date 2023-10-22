@@ -26,16 +26,22 @@ def main():
         """
 
     # заполнение таблицы employers
+    employers = get_employers()
+    db_manager.fill_employers(employers)
+    """
     try:
         employers = get_employers()
         db_manager.fill_employers(employers)
     except FileNotFoundError:
         FileNotFoundError('Файл не найден')
+    except Exception:
+        print("boom")
     #    exit()
+    """
 
     # парсинг вакансий (hh.ru)
     hh = APIhh()
-    for employer_id in employers: # .values()
+    for employer_id in employers.values():
         vacancies.extend(hh.get_vacancies(employer_id))
 
     # заполнение таблицы vacancies
@@ -52,10 +58,10 @@ exit - завершить работу\n""")
             for vacancy in vacancies:
                 print(vacancy)
         elif user_input == '2':
-            vacancies = db_manager.get_avg_salary()
-            for vacancy in vacancies:
-                rounded_vacancy = round(vacancy)
-                print(rounded_vacancy)
+            vacancy = db_manager.get_avg_salary()
+            #for vacancy in vacancies:
+            rounded_vacancy = round(vacancy)
+            print(rounded_vacancy)
         elif user_input == 'exit':
             break
 
