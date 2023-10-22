@@ -1,6 +1,8 @@
 from utils import get_employers
 from DBManager import DBManager
 from api import APIhh
+from exceptions import ConfigException
+import psycopg2
 
 
 def main():
@@ -12,15 +14,12 @@ def main():
     except FileNotFoundError:
         FileNotFoundError('Ошибка: файл не найден')
         exit()
-    """
-    except ConfigException:
-        print("Ошибка конфигурации")
-        exit()
     except psycopg2.Error:
         print('Ошибка инициализации базы данных')
         exit()
-        
-        """
+    except ConfigException:
+        print("Ошибка конфигурации")
+        exit()
 
     # заполнение таблицы employers
     employers = get_employers()
